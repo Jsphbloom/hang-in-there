@@ -100,7 +100,7 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
-var currentPoster = document.querySelector('.poster');
+var currentPoster = document.querySelector('.poster-img');
 var randomButton = document.querySelector('.show-random');
 var showFormButton = document.querySelector('.show-form');
 var savePoster = document.querySelector('.save-poster');
@@ -108,6 +108,7 @@ var showSaved = document.querySelector('.show-saved')
 
 var posterTitle = document.querySelector('.poster-title')
 var posterQuote = document.querySelector('.poster-quote')
+
 var makePoster = document.querySelector('.make-poster')
 
 var showMainButton = document.querySelector('.show-main')
@@ -122,7 +123,7 @@ showSaved.addEventListener('click', showSavedPosters)
 showMainButton.addEventListener('click', backToMain)
 backToMainButton.addEventListener('click', backToMain)
 
-makePoster.addEventListener('click', createPoster)
+makePoster.addEventListener('click', generatePoster)
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
@@ -134,33 +135,35 @@ function backToMain() {
 }
 
 function showSavedPosters() {
+  console.log('showing saved posters!')
   document.querySelector('.saved-posters').classList.remove('hidden');
   document.querySelector('.main-poster').classList.add('hidden');
 }
 
-function createPoster() {
-  event.preventDefault()
+// function createPoster() {
+//   event.preventDefault()
   
-  console.log('createPoster running!')
+//   console.log('createPoster running!')
   
-  var imgUrl = document.querySelector('#poster-image-url').value
-  var titleText = document.querySelector('#poster-title').value
-  var quoteText = document.querySelector('#poster-quote').value
+  // var imgUrl = document.querySelector('#poster-image-url').value
+  // var titleText = document.querySelector('#poster-title').value
+  // var quoteText = document.querySelector('#poster-quote').value
  
-  currentPoster.setAttribute("src", imgUrl)
-  posterTitle.textContent = titleText
-  posterQuote.textContent = quoteText
+  // currentPoster.setAttribute("src", imgUrl)
+  // posterTitle.textContent = titleText
+  // posterQuote.textContent = quoteText
 
-  console.log("Image URL:", imgUrl)
-  console.log("Title: ", titleText)
-  console.log("Quote: ", quoteText)
+//   console.log("Image URL:", imgUrl)
+//   console.log("Title: ", titleText)
+//   console.log("Quote: ", quoteText)
   
-  document.querySelector('.main-poster').classList.remove('hidden');
-  document.querySelector('.poster-form').classList.add('hidden');
+//   document.querySelector('.main-poster').classList.remove('hidden');
+//   document.querySelector('.poster-form').classList.add('hidden');
 
-}
+// }
 
 function showForm() {
+  event.preventDefault()
   document.querySelector('.main-poster').classList.add('hidden')
   document.querySelector('.poster-form').classList.remove('hidden')
 }
@@ -179,6 +182,28 @@ function createPoster(imageURL, title, quote) {
     id: Date.now(), 
     imageURL: imageURL, 
     title: title, 
-    quote: quote}
+    quote: quote
+  }
 }
+
+function generatePoster() {
+  event.preventDefault()
+  var imgUrl = document.querySelector('#poster-image-url').value
+  var titleText = document.querySelector('#poster-title').value
+  var quoteText = document.querySelector('#poster-quote').value
+  
+  var newPoster = createPoster(imgUrl, titleText, quoteText)
+ 
+  currentPoster.setAttribute("src", imgUrl)
+  posterTitle.textContent = newPoster.title
+  posterQuote.textContent = newPoster.quote
+
+  images.push(imgUrl)
+  titles.push(titleText)
+  quotes.push(quoteText)
+
+  document.querySelector('.main-poster').classList.remove('hidden');
+  document.querySelector('.poster-form').classList.add('hidden');
+}
+
 console.log(quotes)
