@@ -100,12 +100,76 @@ var quotes = [
   "A champion is defined not by their wins but by how they can recover when they fall."
 ];
 var savedPosters = [];
-var currentPoster;
+var currentPoster = document.querySelector('.poster');
+var randomButton = document.querySelector('.show-random');
+var showFormButton = document.querySelector('.show-form');
+var savePoster = document.querySelector('.save-poster');
+var showSaved = document.querySelector('.show-saved')
+
+var posterTitle = document.querySelector('.poster-title')
+var posterQuote = document.querySelector('.poster-quote')
+var makePoster = document.querySelector('.make-poster')
+
+var showMainButton = document.querySelector('.show-main')
+var backToMainButton = document.querySelector('.back-to-main')
 
 // event listeners go here 👇
+window.addEventListener("load", generateRandomPoster)
+randomButton.addEventListener('click', generateRandomPoster)
+showFormButton.addEventListener('click', showForm)
+
+showSaved.addEventListener('click', showSavedPosters)
+showMainButton.addEventListener('click', backToMain)
+backToMainButton.addEventListener('click', backToMain)
+
+makePoster.addEventListener('click', createPoster)
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
+
+function backToMain() {
+  document.querySelector('.main-poster').classList.remove('hidden');
+  document.querySelector('.poster-form').classList.add('hidden');
+  document.querySelector('.saved-posters').classList.add('hidden');
+}
+
+function showSavedPosters() {
+  document.querySelector('.saved-posters').classList.remove('hidden');
+  document.querySelector('.main-poster').classList.add('hidden');
+}
+
+function createPoster() {
+  event.preventDefault()
+  
+  console.log('createPoster running!')
+  
+  var imgUrl = document.querySelector('#poster-image-url').value
+  var titleText = document.querySelector('#poster-title').value
+  var quoteText = document.querySelector('#poster-quote').value
+ 
+  currentPoster.setAttribute("src", imgUrl)
+  posterTitle.textContent = titleText
+  posterQuote.textContent = quoteText
+
+  console.log("Image URL:", imgUrl)
+  console.log("Title: ", titleText)
+  console.log("Quote: ", quoteText)
+  
+  document.querySelector('.main-poster').classList.remove('hidden');
+  document.querySelector('.poster-form').classList.add('hidden');
+
+}
+
+function showForm() {
+  document.querySelector('.main-poster').classList.add('hidden')
+  document.querySelector('.poster-form').classList.remove('hidden')
+}
+
+function generateRandomPoster(){
+  var randomIndex = getRandomIndex(images);
+  currentPoster.setAttribute("src", images[randomIndex]);
+}
+
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -117,3 +181,4 @@ function createPoster(imageURL, title, quote) {
     title: title, 
     quote: quote}
 }
+console.log(quotes)
