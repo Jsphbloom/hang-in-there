@@ -121,6 +121,10 @@ var posterForm = document.querySelector('.poster-form');
 
 var savedPostersGrid = document.querySelector('.saved-posters-grid');
 
+var unmotivationalPosterButton = document.querySelector('.unmotivational-posters');
+var unmotivationalSection = document.querySelector('.unmotivational')
+var unmotivationalHomeButton = document.querySelector('.back-to-main-again')
+
 // event listeners go here 👇
 window.addEventListener("load", generateRandomPoster)
 randomButton.addEventListener('click', generateRandomPoster)
@@ -132,9 +136,17 @@ backToMainButton.addEventListener('click', backToMain)
 
 makePoster.addEventListener('click', generatePoster)
 savePoster.addEventListener('click', catalogPoster)
+unmotivationalPosterButton.addEventListener('click', showUnmotivationalPosters)
+unmotivationalHomeButton.addEventListener('click', backToMain)
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
+
+function showUnmotivationalPosters(){
+  unmotivationalSection.classList.remove('hidden')
+  mainPoster.classList.add('hidden')
+  document.title = 'Unmotivational Posters'
+}
 
 function catalogPoster() {
   var createdPoster = createPoster(currentPoster.src, posterTitle.innerText, posterQuote.innerText)
@@ -157,6 +169,8 @@ function backToMain() {
   mainPoster.classList.remove('hidden');
   posterForm.classList.add('hidden');
   savedPostersSection.classList.add('hidden');
+  unmotivationalSection.classList.add('hidden');
+  document.title = 'Hang In There'
 }
 
 function showSavedPosters() {
