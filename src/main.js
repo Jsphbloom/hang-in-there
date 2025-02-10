@@ -255,17 +255,34 @@ randomButton.addEventListener('click', generateRandomPoster)
 showFormButton.addEventListener('click', showForm)
 
 showSaved.addEventListener('click', showSavedPosters)
-showMainButton.addEventListener('click', backToMain)
-backToMainButton.addEventListener('click', backToMain)
 
 makePoster.addEventListener('click', generatePoster)
 savePoster.addEventListener('click', catalogPoster)
 
+unmotivationalSection.addEventListener('dblclick', deletePoster)
 unmotivationalPosterButton.addEventListener('click', showUnmotivationalPosters)
+
 unmotivationalHomeButton.addEventListener('click', backToMain)
+showMainButton.addEventListener('click', backToMain)
+backToMainButton.addEventListener('click', backToMain)
+
 
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
+
+function deletePoster(event) {
+  let posterToDelete = event.target.closest('article')
+  if (posterToDelete) {
+    posterToDelete.remove() 
+  }
+  let posterIndex = unmotivationalPosters.findIndex((poster) => {
+    poster.img_url === posterToDelete.dataset.imageURL
+    return poster
+  })
+  if (posterIndex !== -1) {
+    unmotivationalPosters.splice(posterIndex, 1)
+  }
+}
 
 function showUnmotivationalPosters(){
   unmotivationalSection.classList.remove('hidden')
@@ -327,8 +344,13 @@ function showForm() {
 }
 
 function generateRandomPoster(){
-  var randomIndex = getRandomIndex(images);
-  currentPoster.setAttribute("src", images[randomIndex]);
+  var randomIndexImage = getRandomIndex(images);
+  var randomIndexTitle = getRandomIndex(titles);
+  var randomIndexQuote = getRandomIndex(quotes);
+
+  currentPoster.setAttribute("src", images[randomIndexImage]);
+  posterTitle.innerText = titles[randomIndexTitle];
+  posterQuote.innerText = quotes[randomIndexQuote];
 }
 
 function getRandomIndex(array) {
@@ -378,4 +400,4 @@ function generatePoster() {
   posterForm.classList.add('hidden');
 }
 
-console.log(quotes)
+// console.log(quotes)
