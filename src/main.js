@@ -2,7 +2,7 @@
 
 // we've provided you with some data to work with 👇
 // tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
-var images = [
+let images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
   "./assets/butterfly.jpg",
@@ -22,7 +22,7 @@ var images = [
   "./assets/tiger.jpg",
   "./assets/turtle.jpg"
 ];
-var titles = [
+let titles = [
   "determination",
   "success",
   "inspiration",
@@ -59,7 +59,7 @@ var titles = [
   "understanding",
   "wisdom"
 ];
-var quotes = [
+let quotes = [
   "Don’t downgrade your dream just to fit your reality, upgrade your conviction to match your destiny.",
   "You are braver than you believe, stronger than you seem and smarter than you think.",
   "You are confined only by the walls you build yourself.",
@@ -221,33 +221,32 @@ let unmotivationalPosters = [
     img_url: "./assets/doubt.jpg",
   }
 ];
+let savedPosters = [];
 
-var savedPosters = [];
-var currentPoster = document.querySelector('.poster-img');
-var posterTitle = document.querySelector('.poster-title');
-var posterQuote = document.querySelector('.poster-quote');
+let currentPoster = document.querySelector('.poster-img');
+let posterTitle = document.querySelector('.poster-title');
+let posterQuote = document.querySelector('.poster-quote');
 
-var randomButton = document.querySelector('.show-random');
-var showFormButton = document.querySelector('.show-form');
-var savePoster = document.querySelector('.save-poster');
-var showSaved = document.querySelector('.show-saved');
+let randomButton = document.querySelector('.show-random');
+let showFormButton = document.querySelector('.show-form');
+let savePoster = document.querySelector('.save-poster');
+let showSaved = document.querySelector('.show-saved');
 
+let makePoster = document.querySelector('.make-poster');
 
-var makePoster = document.querySelector('.make-poster');
+let showMainButton = document.querySelector('.show-main');
+let backToMainButton = document.querySelector('.back-to-main');
 
-var showMainButton = document.querySelector('.show-main');
-var backToMainButton = document.querySelector('.back-to-main');
+let savedPostersSection = document.querySelector('.saved-posters');
+let mainPoster = document.querySelector('.main-poster');
+let posterForm = document.querySelector('.poster-form');
 
-var savedPostersSection = document.querySelector('.saved-posters');
-var mainPoster = document.querySelector('.main-poster');
-var posterForm = document.querySelector('.poster-form');
+let savedPostersGrid = document.querySelector('.saved-posters-grid');
 
-var savedPostersGrid = document.querySelector('.saved-posters-grid');
-
-var unmotivationalPosterButton = document.querySelector('.unmotivational-posters');
-var unmotivationalSection = document.querySelector('.unmotivational')
-var unmotivationalHomeButton = document.querySelector('.back-to-main-again')
-var unmotivationalGrid = document.querySelector('.displayed-posters-grid')
+let unmotivationalPosterButton = document.querySelector('.unmotivational-posters');
+let unmotivationalSection = document.querySelector('.unmotivational')
+let unmotivationalHomeButton = document.querySelector('.back-to-main-again')
+let unmotivationalGrid = document.querySelector('.displayed-posters-grid')
 
 // event listeners go here 👇
 window.addEventListener("load", generateRandomPoster)
@@ -270,6 +269,7 @@ backToMainButton.addEventListener('click', backToMain)
 // functions and event handlers go here 👇
 // (we've provided two to get you started)!
 
+
 function deletePoster(event) {
   let posterToDelete = event.target.closest('article')
   if (posterToDelete) {
@@ -284,6 +284,7 @@ function deletePoster(event) {
   }
 }
 
+
 function showUnmotivationalPosters(){
   unmotivationalSection.classList.remove('hidden')
   mainPoster.classList.add('hidden')
@@ -291,10 +292,11 @@ function showUnmotivationalPosters(){
   cleanData(unmotivationalPosters)
 }
 
+
 function catalogPoster() {
-  var createdPoster = createPoster(currentPoster.src, posterTitle.innerText, posterQuote.innerText)
+  let createdPoster = createPoster(currentPoster.src, posterTitle.innerText, posterQuote.innerText)
   
-  var isDuplicate = savedPosters.some(poster =>
+  let isDuplicate = savedPosters.some(poster =>
     poster.imageURL === createdPoster.imageURL &&
     poster.title === createdPoster.title &&
     poster.quote === createdPoster.quote)
@@ -308,6 +310,7 @@ function catalogPoster() {
   }
 }
 
+
 function backToMain() {
   mainPoster.classList.remove('hidden');
   posterForm.classList.add('hidden');
@@ -316,13 +319,14 @@ function backToMain() {
   document.title = 'Hang In There'
 }
 
+
 function showSavedPosters() {
   savedPostersSection.classList.remove('hidden');
   mainPoster.classList.add('hidden');
   savedPostersGrid.innerHTML = "";
 
   savedPosters.forEach(poster => {
-    var posterElement = document.createElement('article');
+    let posterElement = document.createElement('article');
     posterElement.classList.add('mini-poster');
 
     posterElement.innerHTML = `
@@ -335,6 +339,7 @@ function showSavedPosters() {
   console.log('showing saved posters!')
 }
 
+
 function showForm() {
 
   console.log('showing form!')
@@ -343,19 +348,22 @@ function showForm() {
   posterForm.classList.remove('hidden')
 }
 
+
 function generateRandomPoster(){
-  var randomIndexImage = getRandomIndex(images);
-  var randomIndexTitle = getRandomIndex(titles);
-  var randomIndexQuote = getRandomIndex(quotes);
+  let randomIndexImage = getRandomIndex(images);
+  let randomIndexTitle = getRandomIndex(titles);
+  let randomIndexQuote = getRandomIndex(quotes);
 
   currentPoster.setAttribute("src", images[randomIndexImage]);
   posterTitle.innerText = titles[randomIndexTitle];
   posterQuote.innerText = quotes[randomIndexQuote];
 }
 
+
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
+
 
 function createPoster(imageURL, title, quote) {
   return {
@@ -366,11 +374,12 @@ function createPoster(imageURL, title, quote) {
   }
 }
 
+
 function cleanData(unPosters) {
   unmotivationalGrid.innerHTML = "";
   unPosters.forEach(poster => {
-    var createdPoster = createPoster(poster.img_url, poster.name, poster.description)    
-    var unPosterElement = document.createElement('article');
+    let createdPoster = createPoster(poster.img_url, poster.name, poster.description)    
+    let unPosterElement = document.createElement('article');
 
     unPosterElement.classList.add('mini-poster');
     unPosterElement.innerHTML = `
@@ -381,12 +390,13 @@ function cleanData(unPosters) {
   })
 }
 
+
 function generatePoster() {
   event.preventDefault()
-  var imgUrl = document.querySelector('#poster-image-url').value
-  var titleText = document.querySelector('#poster-title').value
-  var quoteText = document.querySelector('#poster-quote').value
-  var newPoster = createPoster(imgUrl, titleText, quoteText)
+  let imgUrl = document.querySelector('#poster-image-url').value
+  let titleText = document.querySelector('#poster-title').value
+  let quoteText = document.querySelector('#poster-quote').value
+  let newPoster = createPoster(imgUrl, titleText, quoteText)
  
   currentPoster.setAttribute("src", imgUrl)
   posterTitle.textContent = newPoster.title
