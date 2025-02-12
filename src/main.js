@@ -302,7 +302,7 @@ function catalogPoster() {
     poster.quote === createdPoster.quote)
 
   if (isDuplicate) {
-    console.log('already saved!')
+    alert('already saved!')
   } else {
     savedPosters.push(createdPoster)
     console.log("Poster saved!", createdPoster);
@@ -381,7 +381,7 @@ function cleanData(unPosters) {
     let createdPoster = createPoster(poster.img_url, poster.name, poster.description)    
     let unPosterElement = document.createElement('article');
 
-    unPosterElement.classList.add('mini-poster');
+    unPosterElement.classList.add('un-poster');
     unPosterElement.innerHTML = `
     <img src="${createdPoster.imageURL}" alt="Saved Unmotivational Poster">
     <h2>${createdPoster.title}</h2>
