@@ -1,7 +1,6 @@
-// query selector variables go here 👇
+// query selector variables //
 
-// we've provided you with some data to work with 👇
-// tip: you can tuck this data out of view with the dropdown found near the line number where the variable is declared 
+
 let images = [
   "./assets/bees.jpg",
   "./assets/bridge.jpg",
@@ -233,14 +232,12 @@ let savePoster = document.querySelector('.save-poster');
 let showSaved = document.querySelector('.show-saved');
 
 let makePoster = document.querySelector('.make-poster');
-
 let showMainButton = document.querySelector('.show-main');
 let backToMainButton = document.querySelector('.back-to-main');
 
 let savedPostersSection = document.querySelector('.saved-posters');
 let mainPoster = document.querySelector('.main-poster');
 let posterForm = document.querySelector('.poster-form');
-
 let savedPostersGrid = document.querySelector('.saved-posters-grid');
 
 let unmotivationalPosterButton = document.querySelector('.unmotivational-posters');
@@ -248,67 +245,27 @@ let unmotivationalSection = document.querySelector('.unmotivational')
 let unmotivationalHomeButton = document.querySelector('.back-to-main-again')
 let unmotivationalGrid = document.querySelector('.displayed-posters-grid')
 
-// event listeners go here 👇
+
+// event listeners //
+
+
 window.addEventListener("load", generateRandomPoster)
+
 randomButton.addEventListener('click', generateRandomPoster)
 showFormButton.addEventListener('click', showForm)
-
 showSaved.addEventListener('click', showSavedPosters)
-
-makePoster.addEventListener('click', generatePoster)
 savePoster.addEventListener('click', catalogPoster)
-
-unmotivationalSection.addEventListener('dblclick', deletePoster)
 unmotivationalPosterButton.addEventListener('click', showUnmotivationalPosters)
 
+makePoster.addEventListener('click', generatePoster)
+
+unmotivationalSection.addEventListener('dblclick', deletePoster)
 unmotivationalHomeButton.addEventListener('click', backToMain)
 showMainButton.addEventListener('click', backToMain)
 backToMainButton.addEventListener('click', backToMain)
 
 
-// functions and event handlers go here 👇
-// (we've provided two to get you started)!
-
-
-function deletePoster(event) {
-  let posterToDelete = event.target.closest('article')
-  if (posterToDelete) {
-    posterToDelete.remove() 
-  }
-  let posterIndex = unmotivationalPosters.findIndex((poster) => {
-    poster.img_url === posterToDelete.dataset.imageURL
-    return poster
-  })
-  if (posterIndex !== -1) {
-    unmotivationalPosters.splice(posterIndex, 1)
-  }
-}
-
-
-function showUnmotivationalPosters(){
-  unmotivationalSection.classList.remove('hidden')
-  mainPoster.classList.add('hidden')
-  document.title = 'Unmotivational Posters'
-  cleanData(unmotivationalPosters)
-}
-
-
-function catalogPoster() {
-  let createdPoster = createPoster(currentPoster.src, posterTitle.innerText, posterQuote.innerText)
-  
-  let isDuplicate = savedPosters.some(poster =>
-    poster.imageURL === createdPoster.imageURL &&
-    poster.title === createdPoster.title &&
-    poster.quote === createdPoster.quote)
-
-  if (isDuplicate) {
-    alert('already saved!')
-  } else {
-    savedPosters.push(createdPoster)
-    console.log("Poster saved!", createdPoster);
-    console.log("All saved posters:", savedPosters);
-  }
-}
+// functions and event handlers //
 
 
 function backToMain() {
@@ -320,6 +277,22 @@ function backToMain() {
 }
 
 
+function catalogPoster() {
+  let createdPoster = createPoster(currentPoster.src, posterTitle.innerText, posterQuote.innerText)
+  
+  let isDuplicate = savedPosters.some(poster =>
+    poster.imageURL === createdPoster.imageURL &&
+    poster.title === createdPoster.title &&
+    poster.quote === createdPoster.quote)
+    
+    if (isDuplicate) {
+      alert('already saved!')
+    } else {
+      savedPosters.push(createdPoster)
+  }
+}
+
+
 function showSavedPosters() {
   savedPostersSection.classList.remove('hidden');
   mainPoster.classList.add('hidden');
@@ -328,22 +301,19 @@ function showSavedPosters() {
   savedPosters.forEach(poster => {
     let posterElement = document.createElement('article');
     posterElement.classList.add('mini-poster');
-
     posterElement.innerHTML = `
-    <img src="${poster.imageURL}" alt="Saved Poster">
-    <h2>${poster.title}</h2>
-    <h4>${poster.quote}</h4> `
-
+      <img src="${poster.imageURL}" alt="Saved Poster">
+      <h2>${poster.title}</h2>
+      <h4>${poster.quote}</h4> `
   savedPostersGrid.appendChild(posterElement);
   })
-  console.log('showing saved posters!')
 }
 
 
 function showForm() {
-
-  console.log('showing form!')
-
+  document.querySelector('#poster-image-url').value = "";
+  document.querySelector('#poster-title').value = "";
+  document.querySelector('#poster-quote').value = "";
   mainPoster.classList.add('hidden')
   posterForm.classList.remove('hidden')
 }
@@ -375,22 +345,6 @@ function createPoster(imageURL, title, quote) {
 }
 
 
-function cleanData(unPosters) {
-  unmotivationalGrid.innerHTML = "";
-  unPosters.forEach(poster => {
-    let createdPoster = createPoster(poster.img_url, poster.name, poster.description)    
-    let unPosterElement = document.createElement('article');
-
-    unPosterElement.classList.add('un-poster');
-    unPosterElement.innerHTML = `
-    <img src="${createdPoster.imageURL}" alt="Saved Unmotivational Poster">
-    <h2>${createdPoster.title}</h2>
-    <h4>${createdPoster.quote}</h4> `
-    unmotivationalGrid.appendChild(unPosterElement);
-  })
-}
-
-
 function generatePoster() {
   event.preventDefault()
   let imgUrl = document.querySelector('#poster-image-url').value
@@ -410,4 +364,43 @@ function generatePoster() {
   posterForm.classList.add('hidden');
 }
 
-// console.log(quotes)
+
+function showUnmotivationalPosters(){
+  cleanData(unmotivationalPosters)
+  unmotivationalSection.classList.remove('hidden')
+  mainPoster.classList.add('hidden')
+  document.title = 'Unmotivational Posters'
+}
+
+
+function cleanData(unPosters) {
+  unmotivationalGrid.innerHTML = "";
+  unPosters.forEach(poster => {
+    let createdPoster = createPoster(poster.img_url, poster.name, poster.description)    
+    let unPosterElement = document.createElement('article');
+
+    unPosterElement.classList.add('un-poster');
+    unPosterElement.innerHTML = `
+    <img src="${createdPoster.imageURL}" alt="Saved Unmotivational Poster">
+    <h2>${createdPoster.title}</h2>
+    <h4>${createdPoster.quote}</h4> `
+
+    unmotivationalGrid.appendChild(unPosterElement);
+  })
+}
+
+
+function deletePoster(event) {
+  let posterToDelete = event.target.closest('article')
+
+  if (posterToDelete) {
+    posterToDelete.remove() 
+  }
+  let posterIndex = unmotivationalPosters.findIndex((poster) => {
+    poster.img_url === posterToDelete.dataset.imageURL
+    return poster
+  })
+  if (posterIndex !== -1) {
+    unmotivationalPosters.splice(posterIndex, 1)
+  }
+}
